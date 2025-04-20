@@ -31,7 +31,7 @@ fun InputPanel(
     modifier: Modifier = Modifier
 ) {
     val breakpoint = rememberBreakpoint()
-    
+
     Column(
         modifier = modifier.padding(1.cssRem),
         verticalArrangement = Arrangement.spacedBy(1.cssRem),
@@ -90,12 +90,10 @@ fun InputPanel(
                 horizontalArrangement = Arrangement.spacedBy(0.5.cssRem),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                SpanText("от")
                 TextInput(
-                    attrs = modifier
-                        .width(45.percent)
-                        .background(Color.transparent)
-                        .borderRadius(0.5.cssRem)
-                        .padding(0.3.cssRem)
+                    attrs = Modifier
+                        .width(3.cssRem)
                         .toAttrs {
                             value(viewModel.lowerBound.toString())
                             onInput { event ->
@@ -105,11 +103,8 @@ fun InputPanel(
                 )
                 SpanText("до")
                 TextInput(
-                    attrs = modifier
-                        .width(45.percent)
-                        .background(Color.transparent)
-                        .borderRadius(0.5.cssRem)
-                        .padding(0.3.cssRem)
+                    attrs = Modifier
+                        .width(3.cssRem)
                         .toAttrs {
                             value(viewModel.upperBound.toString())
                             onInput { event ->
@@ -146,13 +141,15 @@ fun InputPanel(
                     Option(
                         value = method.name
                     ) {
-                        Text(when (method) {
-                            IntegrationMethod.LEFT_RECTANGLE -> "Левые прямоугольники"
-                            IntegrationMethod.RIGHT_RECTANGLE -> "Правые прямоугольники"
-                            IntegrationMethod.MIDDLE_RECTANGLE -> "Средние прямоугольники"
-                            IntegrationMethod.TRAPEZOID -> "Метод трапеций"
-                            IntegrationMethod.SIMPSON -> "Метод Симпсона"
-                        })
+                        Text(
+                            when (method) {
+                                IntegrationMethod.LEFT_RECTANGLE -> "Левые прямоугольники"
+                                IntegrationMethod.RIGHT_RECTANGLE -> "Правые прямоугольники"
+                                IntegrationMethod.MIDDLE_RECTANGLE -> "Средние прямоугольники"
+                                IntegrationMethod.TRAPEZOID -> "Метод трапеций"
+                                IntegrationMethod.SIMPSON -> "Метод Симпсона"
+                            }
+                        )
                     }
                 }
             }
@@ -166,7 +163,8 @@ fun InputPanel(
         ) {
             SpanText(
                 "Точность:",
-                modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent).margin(right = 1.cssRem)
+                modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
+                    .margin(right = 1.cssRem)
             )
             TextInput(
                 attrs = {
