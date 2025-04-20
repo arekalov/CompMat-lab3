@@ -35,6 +35,11 @@ fun ResultPanel(
                 modifier = Modifier.fillMaxWidth().margin(bottom = 1.cssRem),
                 verticalArrangement = Arrangement.spacedBy(0.5.cssRem)
             ) {
+                // Информация о функции
+                SpanText("Функция: ${viewModel.selectedFunction.name}")
+                SpanText("Пределы интегрирования: [${viewModel.selectedFunction.lowerBound}, ${viewModel.selectedFunction.upperBound}]")
+                
+                // Информация о методе и результатах
                 SpanText("Метод: ${result.method}")
                 SpanText("Точное значение: ${result.exactValue}")
                 SpanText("Вычисленное значение: ${result.finalValue}")
