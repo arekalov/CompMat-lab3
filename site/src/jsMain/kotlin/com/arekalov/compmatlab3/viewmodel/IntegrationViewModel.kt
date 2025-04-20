@@ -13,6 +13,8 @@ class IntegrationViewModel {
     var epsilon by mutableStateOf("0.001")
     var error by mutableStateOf<String?>(null)
     var result by mutableStateOf<IntegrationResult?>(null)
+    var lowerBound by mutableStateOf(selectedFunction.lowerBound.toString())
+    var upperBound by mutableStateOf(selectedFunction.upperBound.toString())
 
     fun calculate() {
         try {
@@ -22,9 +24,24 @@ class IntegrationViewModel {
                 return
             }
 
+            val lower = lowerBound.toDoubleOrNull()
+            val upper = upperBound.toDoubleOrNull()
+            
+            if (lower == null || upper == null) {
+                error = "Пределы интегрирования должны быть числами"
+                return
+            }
+            
+            if (lower >= upper) {
+                error = "Нижний предел должен быть меньше верхнего"
+                return
+            }
+
             result = selectedFunction.calculateWithPrecision(
                 method = selectedMethod,
-                epsilon = epsilonValue
+                epsilon = epsilonValue,
+                a = lower,
+                b = upper
             )
             error = null
         } catch (e: Exception) {
@@ -36,6 +53,8 @@ class IntegrationViewModel {
     fun selectFunction(index: Int) {
         if (index in Functions.availableFunctions.indices) {
             selectedFunction = Functions.availableFunctions[index]
+            lowerBound = selectedFunction.lowerBound.toString()
+            upperBound = selectedFunction.upperBound.toString()
             result = null
             error = null
         }
@@ -49,6 +68,18 @@ class IntegrationViewModel {
 
     fun updateEpsilon(value: String) {
         epsilon = value
+        result = null
+        error = null
+    }
+
+    fun updateLowerBound(value: String) {
+        lowerBound = value
+        result = null
+        error = null
+    }
+
+    fun updateUpperBound(value: String) {
+        upperBound = value
         result = null
         error = null
     }

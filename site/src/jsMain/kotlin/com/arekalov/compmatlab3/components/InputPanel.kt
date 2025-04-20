@@ -75,6 +75,51 @@ fun InputPanel(
             }
         }
 
+        // Пределы интегрирования
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(1.cssRem),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SpanText(
+                "Пределы:",
+                modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(0.5.cssRem),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextInput(
+                    attrs = modifier
+                        .width(45.percent)
+                        .background(Color.transparent)
+                        .borderRadius(0.5.cssRem)
+                        .padding(0.3.cssRem)
+                        .toAttrs {
+                            value(viewModel.lowerBound.toString())
+                            onInput { event ->
+                                viewModel.updateLowerBound(event.value)
+                            }
+                        }
+                )
+                SpanText("до")
+                TextInput(
+                    attrs = modifier
+                        .width(45.percent)
+                        .background(Color.transparent)
+                        .borderRadius(0.5.cssRem)
+                        .padding(0.3.cssRem)
+                        .toAttrs {
+                            value(viewModel.upperBound.toString())
+                            onInput { event ->
+                                viewModel.updateUpperBound(event.value)
+                            }
+                        }
+                )
+            }
+        }
+
         // Выбор метода
         Row(
             modifier = Modifier.fillMaxWidth(),

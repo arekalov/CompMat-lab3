@@ -37,7 +37,7 @@ fun ResultPanel(
             ) {
                 // Информация о функции
                 SpanText("Функция: ${viewModel.selectedFunction.name}")
-                SpanText("Пределы интегрирования: [${viewModel.selectedFunction.lowerBound}, ${viewModel.selectedFunction.upperBound}]")
+                SpanText("Пределы интегрирования: [${viewModel.lowerBound}, ${viewModel.upperBound}]")
                 
                 // Информация о методе и результатах
                 SpanText("Метод: ${result.method}")

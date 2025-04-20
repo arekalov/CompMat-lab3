@@ -15,61 +15,61 @@ sealed class Function(
     abstract fun calculate(x: Double): Double
 
     // Вычисление точного значения интеграла (если известно)
-    abstract fun exactIntegral(): Double
+    abstract fun exactIntegral(a: Double = lowerBound, b: Double = upperBound): Double
 
     // Метод для вычисления интеграла методом левых прямоугольников
-    fun leftRectangle(n: Int): Double {
-        val h = (upperBound - lowerBound) / n
+    private fun leftRectangle(n: Int, a: Double, b: Double): Double {
+        val h = (b - a) / n
         var sum = 0.0
         for (i in 0 until n) {
-            val x = lowerBound + i * h
+            val x = a + i * h
             sum += calculate(x)
         }
         return h * sum
     }
 
     // Метод для вычисления интеграла методом правых прямоугольников
-    fun rightRectangle(n: Int): Double {
-        val h = (upperBound - lowerBound) / n
+    private fun rightRectangle(n: Int, a: Double, b: Double): Double {
+        val h = (b - a) / n
         var sum = 0.0
         for (i in 1..n) {
-            val x = lowerBound + i * h
+            val x = a + i * h
             sum += calculate(x)
         }
         return h * sum
     }
 
     // Метод для вычисления интеграла методом средних прямоугольников
-    fun middleRectangle(n: Int): Double {
-        val h = (upperBound - lowerBound) / n
+    private fun middleRectangle(n: Int, a: Double, b: Double): Double {
+        val h = (b - a) / n
         var sum = 0.0
         for (i in 0 until n) {
-            val x = lowerBound + (i + 0.5) * h
+            val x = a + (i + 0.5) * h
             sum += calculate(x)
         }
         return h * sum
     }
 
     // Метод для вычисления интеграла методом трапеций
-    fun trapezoid(n: Int): Double {
-        val h = (upperBound - lowerBound) / n
-        var sum = (calculate(lowerBound) + calculate(upperBound)) / 2
+    private fun trapezoid(n: Int, a: Double, b: Double): Double {
+        val h = (b - a) / n
+        var sum = (calculate(a) + calculate(b)) / 2
         for (i in 1 until n) {
-            val x = lowerBound + i * h
+            val x = a + i * h
             sum += calculate(x)
         }
         return h * sum
     }
 
     // Метод для вычисления интеграла методом Симпсона
-    fun simpson(n: Int): Double {
-        val h = (upperBound - lowerBound) / n
-        var sum = calculate(lowerBound) + calculate(upperBound)
+    private fun simpson(n: Int, a: Double, b: Double): Double {
+        val h = (b - a) / n
+        var sum = calculate(a) + calculate(b)
         var evenSum = 0.0
         var oddSum = 0.0
         
         for (i in 1 until n) {
-            val x = lowerBound + i * h
+            val x = a + i * h
             if (i % 2 == 0) {
                 evenSum += calculate(x)
             } else {
@@ -84,31 +84,33 @@ sealed class Function(
     fun calculateWithPrecision(
         method: IntegrationMethod,
         epsilon: Double,
+        a: Double = lowerBound,
+        b: Double = upperBound,
         initialN: Int = 4
     ): IntegrationResult {
         var n = initialN
         var prevResult = 0.0
         var currentResult: Double
         val iterationResults = mutableListOf<IterationResult>()
-        val exactValue = exactIntegral()
+        val exactValue = exactIntegral(a, b)
         
         do {
             prevResult = when (method) {
-                IntegrationMethod.LEFT_RECTANGLE -> leftRectangle(n)
-                IntegrationMethod.RIGHT_RECTANGLE -> rightRectangle(n)
-                IntegrationMethod.MIDDLE_RECTANGLE -> middleRectangle(n)
-                IntegrationMethod.TRAPEZOID -> trapezoid(n)
-                IntegrationMethod.SIMPSON -> simpson(n)
+                IntegrationMethod.LEFT_RECTANGLE -> leftRectangle(n, a, b)
+                IntegrationMethod.RIGHT_RECTANGLE -> rightRectangle(n, a, b)
+                IntegrationMethod.MIDDLE_RECTANGLE -> middleRectangle(n, a, b)
+                IntegrationMethod.TRAPEZOID -> trapezoid(n, a, b)
+                IntegrationMethod.SIMPSON -> simpson(n, a, b)
             }
             
             n *= 2
             
             currentResult = when (method) {
-                IntegrationMethod.LEFT_RECTANGLE -> leftRectangle(n)
-                IntegrationMethod.RIGHT_RECTANGLE -> rightRectangle(n)
-                IntegrationMethod.MIDDLE_RECTANGLE -> middleRectangle(n)
-                IntegrationMethod.TRAPEZOID -> trapezoid(n)
-                IntegrationMethod.SIMPSON -> simpson(n)
+                IntegrationMethod.LEFT_RECTANGLE -> leftRectangle(n, a, b)
+                IntegrationMethod.RIGHT_RECTANGLE -> rightRectangle(n, a, b)
+                IntegrationMethod.MIDDLE_RECTANGLE -> middleRectangle(n, a, b)
+                IntegrationMethod.TRAPEZOID -> trapezoid(n, a, b)
+                IntegrationMethod.SIMPSON -> simpson(n, a, b)
             }
 
             // Сохраняем результат итерации
