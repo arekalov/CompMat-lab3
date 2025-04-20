@@ -11,6 +11,7 @@ import com.arekalov.compmatlab3.toSitePalette
 import com.arekalov.compmatlab3.viewmodel.IntegrationViewModel
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxSize
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
@@ -33,12 +34,13 @@ fun Index() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(0.5.cssRem),
-            horizontalArrangement = Arrangement.spacedBy(1.cssRem)
+            horizontalArrangement = Arrangement.spacedBy(1.cssRem),
         ) {
             // Панель ввода данных
             BorderBox(
                 color = palette.brand.accent,
-                modifier = Modifier.width(40.cssRem)
+                contentAlignment = Alignment.TopCenter,
+                modifier = Modifier.width(40.cssRem),
             ) {
                 InputPanel(viewModel = viewModel)
             }
@@ -46,6 +48,7 @@ fun Index() {
             // Панель результатов
             BorderBox(
                 color = palette.brand.accent,
+                contentAlignment = Alignment.TopStart,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 ResultPanel(viewModel = viewModel)

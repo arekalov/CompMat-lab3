@@ -12,6 +12,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
@@ -21,8 +22,8 @@ import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.dom.Option
 import org.jetbrains.compose.web.dom.Select
+import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.dom.TextInput
-import org.w3c.dom.Text
 
 @Composable
 fun InputPanel(
@@ -34,7 +35,7 @@ fun InputPanel(
     Column(
         modifier = modifier.padding(1.cssRem),
         verticalArrangement = Arrangement.spacedBy(1.cssRem),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SpanText(
             "Ввод данных",
@@ -51,15 +52,22 @@ fun InputPanel(
                 "Функция:",
                 modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
             )
-            Select({
-                onChange { event ->
-                    viewModel.selectFunction(event.value?.toInt() ?: 0)
-                }
-            }) {
+            Select(
+                attrs = modifier
+                    .margin(left = 1.cssRem)
+                    .background(Color.transparent)
+                    .borderRadius(0.5.cssRem)
+                    .minWidth(5.cssRem)
+                    .padding(0.3.cssRem)
+                    .toAttrs {
+                        onChange { event ->
+                            viewModel.selectFunction(event.value?.toInt() ?: 0)
+                        }
+                    }
+            ) {
                 Functions.availableFunctions.forEachIndexed { index, function ->
                     Option(
-                        value = index.toString(),
-//                        selected = function == viewModel.selectedFunction
+                        value = index.toString()
                     ) {
                         Text(function.name)
                     }
@@ -77,15 +85,21 @@ fun InputPanel(
                 "Метод:",
                 modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
             )
-            Select({
-                onChange { event ->
-                    viewModel.selectMethod(IntegrationMethod.valueOf(event.value.toString()))
-                }
-            }) {
+            Select(
+                attrs = modifier
+                    .background(Color.transparent)
+                    .borderRadius(0.5.cssRem)
+                    .minWidth(5.cssRem)
+                    .padding(0.3.cssRem)
+                    .toAttrs {
+                        onChange { event ->
+                            viewModel.selectMethod(IntegrationMethod.valueOf(event.value.toString()))
+                        }
+                    }
+            ) {
                 IntegrationMethod.entries.forEach { method ->
                     Option(
-                        value = method.name,
-//                        selected = method == viewModel.selectedMethod
+                        value = method.name
                     ) {
                         Text(when (method) {
                             IntegrationMethod.LEFT_RECTANGLE -> "Левые прямоугольники"
@@ -107,7 +121,7 @@ fun InputPanel(
         ) {
             SpanText(
                 "Точность:",
-                modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
+                modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent).margin(right = 1.cssRem)
             )
             TextInput(
                 attrs = {
