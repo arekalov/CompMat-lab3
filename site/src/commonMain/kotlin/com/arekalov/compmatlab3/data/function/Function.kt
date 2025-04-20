@@ -67,7 +67,7 @@ sealed class Function(
         var sum = calculate(a) + calculate(b)
         var evenSum = 0.0
         var oddSum = 0.0
-        
+
         for (i in 1 until n) {
             val x = a + i * h
             if (i % 2 == 0) {
@@ -76,7 +76,7 @@ sealed class Function(
                 oddSum += calculate(x)
             }
         }
-        
+
         return (h / 3) * (sum + 2 * evenSum + 4 * oddSum)
     }
 
@@ -93,7 +93,7 @@ sealed class Function(
         var currentResult: Double
         val iterationResults = mutableListOf<IterationResult>()
         val exactValue = exactIntegral(a, b)
-        
+
         do {
             prevResult = when (method) {
                 IntegrationMethod.LEFT_RECTANGLE -> leftRectangle(n, a, b)
@@ -102,9 +102,9 @@ sealed class Function(
                 IntegrationMethod.TRAPEZOID -> trapezoid(n, a, b)
                 IntegrationMethod.SIMPSON -> simpson(n, a, b)
             }
-            
+
             n *= 2
-            
+
             currentResult = when (method) {
                 IntegrationMethod.LEFT_RECTANGLE -> leftRectangle(n, a, b)
                 IntegrationMethod.RIGHT_RECTANGLE -> rightRectangle(n, a, b)
@@ -121,9 +121,9 @@ sealed class Function(
                     error = abs(currentResult - exactValue)
                 )
             )
-            
+
         } while (abs(currentResult - prevResult) > epsilon && iterationResults.size < 20)
-        
+
         return IntegrationResult(
             finalValue = currentResult,
             exactValue = exactValue,

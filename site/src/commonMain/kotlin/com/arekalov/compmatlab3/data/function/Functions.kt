@@ -8,13 +8,13 @@ class Function1 : Function(
     lowerBound = 2.0,
     upperBound = 4.0
 ) {
-    override fun calculate(x: Double): Double = 
+    override fun calculate(x: Double): Double =
         x.pow(3) - 3 * x.pow(2) + 7 * x - 10
 
     override fun exactIntegral(a: Double, b: Double): Double {
         fun antiderivative(x: Double): Double =
             x.pow(4) / 4 - x.pow(3) + 7 * x.pow(2) / 2 - 10 * x
-        
+
         return antiderivative(b) - antiderivative(a)
     }
 }
@@ -24,13 +24,13 @@ class Function2 : Function(
     lowerBound = 1.0,
     upperBound = 3.0
 ) {
-    override fun calculate(x: Double): Double = 
+    override fun calculate(x: Double): Double =
         2 * x.pow(3) - 9 * x.pow(2) - 7 * x + 11
 
     override fun exactIntegral(a: Double, b: Double): Double {
         fun antiderivative(x: Double): Double =
             x.pow(4) / 2 - 3 * x.pow(3) - 7 * x.pow(2) / 2 + 11 * x
-        
+
         return antiderivative(b) - antiderivative(a)
     }
 }
@@ -40,13 +40,13 @@ class Function3 : Function(
     lowerBound = 1.0,
     upperBound = 2.0
 ) {
-    override fun calculate(x: Double): Double = 
+    override fun calculate(x: Double): Double =
         x.pow(3) + 2 * x.pow(2) - 3 * x - 12
 
     override fun exactIntegral(a: Double, b: Double): Double {
         fun antiderivative(x: Double): Double =
             x.pow(4) / 4 + 2 * x.pow(3) / 3 - 3 * x.pow(2) / 2 - 12 * x
-        
+
         return antiderivative(b) - antiderivative(a)
     }
 }
@@ -56,13 +56,13 @@ class Function4 : Function(
     lowerBound = 1.0,
     upperBound = 3.0
 ) {
-    override fun calculate(x: Double): Double = 
+    override fun calculate(x: Double): Double =
         -2 * x.pow(3) - 5 * x.pow(2) + 7 * x - 13
 
     override fun exactIntegral(a: Double, b: Double): Double {
         fun antiderivative(x: Double): Double =
             -x.pow(4) / 2 - 5 * x.pow(3) / 3 + 7 * x.pow(2) / 2 - 13 * x
-        
+
         return antiderivative(b) - antiderivative(a)
     }
 }

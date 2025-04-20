@@ -3,12 +3,12 @@ package com.arekalov.compmatlab3.components.sections
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import com.arekalov.compmatlab3.components.widgets.IconButton
-import com.arekalov.compmatlab3.components.widgets.RegularText
-import com.arekalov.compmatlab3.toSitePalette
 import com.arekalov.compmatlab3.common.CHANGE_THEME_STR
 import com.arekalov.compmatlab3.common.GITHUB_URI
 import com.arekalov.compmatlab3.common.PAGE_TITLE
+import com.arekalov.compmatlab3.components.widgets.IconButton
+import com.arekalov.compmatlab3.components.widgets.RegularText
+import com.arekalov.compmatlab3.toSitePalette
 import com.varabyte.kobweb.browser.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Row

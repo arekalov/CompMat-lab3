@@ -1,6 +1,7 @@
 package com.arekalov.compmatlab3.components
 
 import androidx.compose.runtime.Composable
+import com.arekalov.compmatlab3.data.strings.Strings
 import com.arekalov.compmatlab3.viewmodel.IntegrationViewModel
 import com.varabyte.kobweb.compose.css.BorderCollapse
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -25,7 +26,7 @@ fun ResultPanel(
         horizontalAlignment = Alignment.Start
     ) {
         SpanText(
-            "Результаты вычислений",
+            Strings.RESULT_TITLE,
             modifier = Modifier.fontSize(1.2.cssRem).fontWeight(FontWeight.Bold)
         )
 
@@ -36,15 +37,15 @@ fun ResultPanel(
                 verticalArrangement = Arrangement.spacedBy(0.5.cssRem)
             ) {
                 // Информация о функции
-                SpanText("Функция: ${viewModel.selectedFunction.name}")
-                SpanText("Пределы интегрирования: [${viewModel.lowerBound}, ${viewModel.upperBound}]")
-                
+                SpanText(Strings.FUNCTION_RESULT + viewModel.selectedFunction.name)
+                SpanText(Strings.BOUNDS_RESULT + "[${viewModel.lowerBound}, ${viewModel.upperBound}]")
+
                 // Информация о методе и результатах
-                SpanText("Метод: ${result.method}")
-                SpanText("Точное значение: ${result.exactValue}")
-                SpanText("Вычисленное значение: ${result.finalValue}")
-                SpanText("Итоговая погрешность: ${result.finalError}")
-                SpanText("Количество итераций: ${result.totalIterations}")
+                SpanText(Strings.METHOD_RESULT + result.method)
+                SpanText(Strings.EXACT_VALUE + result.exactValue)
+                SpanText(Strings.CALCULATED_VALUE + result.finalValue)
+                SpanText(Strings.FINAL_ERROR + result.finalError)
+                SpanText(Strings.ITERATIONS_COUNT + result.totalIterations)
             }
 
             // Таблица с результатами по итерациям
@@ -60,50 +61,46 @@ fun ResultPanel(
                     Th(
                         attrs = {
                             style {
-                                backgroundColor(Color.lightgray)
                                 fontWeight(FontWeight.Bold.toString())
                                 padding(0.5.cssRem)
                                 border(1.px, LineStyle.Solid, Color.gray)
                             }
                         }
                     ) {
-                        Text("Итерация")
+                        Text(Strings.ITERATION_HEADER)
                     }
                     Th(
                         attrs = {
                             style {
-                                backgroundColor(Color.lightgray)
                                 fontWeight(FontWeight.Bold.toString())
                                 padding(0.5.cssRem)
                                 border(1.px, LineStyle.Solid, Color.gray)
                             }
                         }
                     ) {
-                        Text("Разбиения (n)")
+                        Text(Strings.SPLITS_HEADER)
                     }
                     Th(
                         attrs = {
                             style {
-                                backgroundColor(Color.lightgray)
                                 fontWeight(FontWeight.Bold.toString())
                                 padding(0.5.cssRem)
                                 border(1.px, LineStyle.Solid, Color.gray)
                             }
                         }
                     ) {
-                        Text("Значение")
+                        Text(Strings.VALUE_HEADER)
                     }
                     Th(
                         attrs = {
                             style {
-                                backgroundColor(Color.lightgray)
                                 fontWeight(FontWeight.Bold.toString())
                                 padding(0.5.cssRem)
                                 border(1.px, LineStyle.Solid, Color.gray)
                             }
                         }
                     ) {
-                        Text("Погрешность")
+                        Text(Strings.ERROR_HEADER)
                     }
                 }
 

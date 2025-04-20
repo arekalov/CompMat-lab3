@@ -26,12 +26,12 @@ class IntegrationViewModel {
 
             val lower = lowerBound.toDoubleOrNull()
             val upper = upperBound.toDoubleOrNull()
-            
+
             if (lower == null || upper == null) {
                 error = "Пределы интегрирования должны быть числами"
                 return
             }
-            
+
             if (lower >= upper) {
                 error = "Нижний предел должен быть меньше верхнего"
                 return

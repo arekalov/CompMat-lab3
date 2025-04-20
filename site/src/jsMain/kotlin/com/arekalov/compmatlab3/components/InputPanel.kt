@@ -3,9 +3,9 @@ package com.arekalov.compmatlab3.components
 import androidx.compose.runtime.Composable
 import com.arekalov.compmatlab3.data.function.Functions
 import com.arekalov.compmatlab3.data.integration.IntegrationMethod
+import com.arekalov.compmatlab3.data.strings.Strings
 import com.arekalov.compmatlab3.viewmodel.IntegrationViewModel
 import com.varabyte.kobweb.compose.css.FontWeight
-import com.varabyte.kobweb.compose.css.GridEntry.Repeat.Auto.Type
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
@@ -38,7 +38,7 @@ fun InputPanel(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SpanText(
-            "Ввод данных",
+            Strings.INPUT_TITLE,
             modifier = Modifier.fontSize(1.2.cssRem).fontWeight(FontWeight.Bold)
         )
 
@@ -49,7 +49,7 @@ fun InputPanel(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SpanText(
-                "Функция:",
+                Strings.FUNCTION_LABEL,
                 modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
             )
             Select(
@@ -82,7 +82,7 @@ fun InputPanel(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SpanText(
-                "Пределы:",
+                Strings.BOUNDS_LABEL,
                 modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
             )
             Row(
@@ -90,7 +90,7 @@ fun InputPanel(
                 horizontalArrangement = Arrangement.spacedBy(0.5.cssRem),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                SpanText("от")
+                SpanText(Strings.BOUNDS_SEPARATOR_BEFORE)
                 TextInput(
                     attrs = Modifier
                         .width(3.cssRem)
@@ -101,7 +101,7 @@ fun InputPanel(
                             }
                         }
                 )
-                SpanText("до")
+                SpanText(Strings.BOUNDS_SEPARATOR_AFTER)
                 TextInput(
                     attrs = Modifier
                         .width(3.cssRem)
@@ -122,7 +122,7 @@ fun InputPanel(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SpanText(
-                "Метод:",
+                Strings.METHOD_LABEL,
                 modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
             )
             Select(
@@ -143,11 +143,11 @@ fun InputPanel(
                     ) {
                         Text(
                             when (method) {
-                                IntegrationMethod.LEFT_RECTANGLE -> "Левые прямоугольники"
-                                IntegrationMethod.RIGHT_RECTANGLE -> "Правые прямоугольники"
-                                IntegrationMethod.MIDDLE_RECTANGLE -> "Средние прямоугольники"
-                                IntegrationMethod.TRAPEZOID -> "Метод трапеций"
-                                IntegrationMethod.SIMPSON -> "Метод Симпсона"
+                                IntegrationMethod.LEFT_RECTANGLE -> Strings.LEFT_RECTANGLE_METHOD
+                                IntegrationMethod.RIGHT_RECTANGLE -> Strings.RIGHT_RECTANGLE_METHOD
+                                IntegrationMethod.MIDDLE_RECTANGLE -> Strings.MIDDLE_RECTANGLE_METHOD
+                                IntegrationMethod.TRAPEZOID -> Strings.TRAPEZOID_METHOD
+                                IntegrationMethod.SIMPSON -> Strings.SIMPSON_METHOD
                             }
                         )
                     }
@@ -162,7 +162,7 @@ fun InputPanel(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SpanText(
-                "Точность:",
+                Strings.PRECISION_LABEL,
                 modifier = Modifier.width(if (breakpoint >= Breakpoint.MD) 20.percent else 30.percent)
                     .margin(right = 1.cssRem)
             )
@@ -179,9 +179,11 @@ fun InputPanel(
         // Кнопка расчета
         Button(
             onClick = { viewModel.calculate() },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .margin(top = 1.cssRem)
         ) {
-            SpanText("Вычислить")
+            SpanText(Strings.CALCULATE_BUTTON)
         }
 
         // Вывод ошибки

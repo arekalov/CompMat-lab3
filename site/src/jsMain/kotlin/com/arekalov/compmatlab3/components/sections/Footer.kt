@@ -1,10 +1,10 @@
 package com.arekalov.compmatlab3.components.sections
 
 import androidx.compose.runtime.Composable
-import com.arekalov.compmatlab3.toSitePalette
 import com.arekalov.compmatlab3.common.GITHUB_URI
 import com.arekalov.compmatlab3.common.MADE_BY_STR
 import com.arekalov.compmatlab3.common.SOURCE_CODE_STR
+import com.arekalov.compmatlab3.toSitePalette
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.foundation.layout.Box
