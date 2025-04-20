@@ -63,21 +63,29 @@ sealed class Function(
 
     // Метод для вычисления интеграла методом Симпсона
     private fun simpson(n: Int, a: Double, b: Double): Double {
-        val h = (b - a) / n
-        var sum = calculate(a) + calculate(b)
-        var evenSum = 0.0
+        // Метод Симпсона требует четного количества интервалов
+        val adjustedN = if (n % 2 != 0) n + 1 else n
+        val h = (b - a) / adjustedN
+        
+        // Значения в крайних точках
+        val y0 = calculate(a)
+        val yn = calculate(b)
+        
+        // Сумма значений в нечетных точках (коэффициент 4)
         var oddSum = 0.0
-
-        for (i in 1 until n) {
+        for (i in 1 until adjustedN step 2) {
             val x = a + i * h
-            if (i % 2 == 0) {
-                evenSum += calculate(x)
-            } else {
-                oddSum += calculate(x)
-            }
+            oddSum += calculate(x)
         }
-
-        return (h / 3) * (sum + 2 * evenSum + 4 * oddSum)
+        
+        // Сумма значений в четных точках (коэффициент 2)
+        var evenSum = 0.0
+        for (i in 2 until adjustedN step 2) {
+            val x = a + i * h
+            evenSum += calculate(x)
+        }
+        
+        return (h / 3.0) * (y0 + 4 * oddSum + 2 * evenSum + yn)
     }
 
     // Метод для вычисления интеграла с заданной точностью по правилу Рунге

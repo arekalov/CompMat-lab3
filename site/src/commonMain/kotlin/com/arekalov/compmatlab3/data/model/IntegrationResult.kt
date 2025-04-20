@@ -4,7 +4,8 @@ package com.arekalov.compmatlab3.data.model
 data class IterationResult(
     val n: Int, // количество разбиений
     val value: Double, // значение интеграла
-    val error: Double // погрешность на данной итерации
+    val error: Double, // погрешность на данной итерации
+    val convergenceInfo: String = "" // информация о сходимости
 )
 
 // Общий результат интегрирования
@@ -14,5 +15,6 @@ data class IntegrationResult(
     val iterations: List<IterationResult>, // результаты по итерациям
     val totalIterations: Int, // общее количество итераций
     val finalError: Double, // окончательная погрешность
-    val method: String // название метода
+    val method: String, // название метода
+    val convergenceDetails: String = "" // детали сходимости
 )
