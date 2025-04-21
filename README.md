@@ -33,3 +33,5 @@
     ```
 2. Открыть [http://localhost:8080](http://localhost:8080)
 3. Для выхода нажать `Q`
+
+![preview.png](docs/preview.png)
