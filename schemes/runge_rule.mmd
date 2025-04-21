@@ -1,0 +1,11 @@
+flowchart TD
+    A((Начало)) --> B[/Ввод a, b, epsilon, method, n/]
+    B --> D[Вычисление prevResult методом method с n]
+    D --> E[n *= 2]
+    E --> F[Вычисление currentResult методом method с n]
+    F --> G[Сохранение результата итерации]
+    G --> H{"|currentResult - prevResult| > epsilon"}
+    H -->|true| I[prevResult = currentResult]
+    I --> E
+    H -->|false| J[/Возврат результата/]
+    J --> K((Конец))
